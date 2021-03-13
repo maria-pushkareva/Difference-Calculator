@@ -16,7 +16,6 @@ jobs:
       - name: run Linter
         run: make lint
       - name: run test & check test coverage
-        run: make test
         uses: paambaati/codeclimate-action@v2.2.4
         env:
           CC_TEST_REPORTER_ID: ${{ CC_TEST_REPORTER_ID }}
