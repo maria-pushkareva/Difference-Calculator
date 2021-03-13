@@ -14,4 +14,4 @@ asc:
 	asciinema rec
 
 test:
-	npx test	
+	npm test	
