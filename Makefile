@@ -12,3 +12,6 @@ lint-fix:
 
 asc:
 	asciinema rec
+
+test:
+	npx jest	

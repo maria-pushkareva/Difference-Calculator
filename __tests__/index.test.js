@@ -1,7 +1,7 @@
-import gendiff from '../src/index.js';
-import path from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+
+import gendiff from '../src/index.js';
 
 test('gendiff', () => {
   const __filename = fileURLToPath(import.meta.url);
