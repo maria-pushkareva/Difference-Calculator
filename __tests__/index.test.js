@@ -3,12 +3,13 @@ import { fileURLToPath } from 'url';
 
 import gendiff from '../src/index.js';
 
-test('gendiff', () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const generatePathName = (fileName) => path.join(__dirname, '..', '__fixtures__', fileName);
 
-  const filepath1 = path.join(__dirname, '..', '__fixtures__', 'file1_flat.json');
-  const filepath2 = path.join(__dirname, '..', '__fixtures__', 'file2_flat.json');
+test('gendiff', () => {
+  const filepath1 = generatePathName('file1_flat.json');
+  const filepath2 = generatePathName('file2_flat.json');
   const result = [
     '  - follow: false',
     '    host: hexlet.io',
