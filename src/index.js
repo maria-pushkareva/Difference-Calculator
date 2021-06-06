@@ -1,24 +1,18 @@
 import fs from 'fs';
 import path from 'path';
-import compareJson from './compareJson.js';
-import compareYaml from './compareYaml.js';
+import compare from './compare.js';
+import parse from './parsers.js';
 
 const makeAbsolutePath = (filepath) => path.resolve(process.cwd(), filepath);
 const getFileData = (filepath) => fs.readFileSync(makeAbsolutePath(filepath));
-
-const mapping = {
-  json: compareJson,
-  yaml: compareYaml,
-  yml: compareYaml,
-};
+const getFileExt = (filepath) => path.extname(filepath).slice(1);
 
 const gendiff = (filepath1, filepath2) => {
-  const fileData1 = getFileData(filepath1);
-  const fileData2 = getFileData(filepath2);
-  const ext = path.extname(filepath2);
-  console.log(ext, 'bububub');
-  const compareFunction = mapping[ext.slice(1)];
-  const result = compareFunction(fileData1, fileData2);
+  const parsedData1 = parse(getFileData(filepath1), getFileExt(filepath1));
+  const parsedData2 = parse(getFileData(filepath2), getFileExt(filepath2));
+
+  const result = compare(parsedData1, parsedData2);
+
   return `{\n${result.join('\n')}\n}`;
 };
 
