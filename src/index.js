@@ -16,5 +16,4 @@ const gendiff = (filepath1, filepath2, format = 'stylish') => {
 
   return formatDiffTree(diffTree, format);
 };
-
 export default gendiff;

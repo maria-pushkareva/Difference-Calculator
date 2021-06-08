@@ -6,35 +6,35 @@ const stringyfyValue = (value) => {
     return `'${value}'`;
   }
   return value;
-}
+};
 
 export default (diffTree) => {
   const inner = (tree, path) => {
-    //console.log(tree, 'aa', tree.key, path);
     const lines = tree.flatMap((el) => {
       const newPath = [...path, el.key];
+      let string;
       switch (el.type) {
         case 'unchanged':
-          return;
+          break;
         case 'removed':
-          return `Property '${newPath.join('.')}' was removed`;
+          string = `Property '${newPath.join('.')}' was removed`;
+          break;
         case 'added':
-          return `Property '${newPath.join('.')}' was added with value: ${stringyfyValue(el.value)}`;
+          string = `Property '${newPath.join('.')}' was added with value: ${stringyfyValue(el.value)}`;
+          break;
         case 'updated':
-          return `Property '${newPath.join('.')}' was updated. From ${stringyfyValue(el.oldValue)} to ${stringyfyValue(el.newValue)}`;
+          string = `Property '${newPath.join('.')}' was updated. From ${stringyfyValue(el.oldValue)} to ${stringyfyValue(el.newValue)}`;
+          break;
         case 'parent':
-          return inner(el.children, newPath);
+          string = inner(el.children, newPath);
+          break;
         default:
           throw new Error('uknown type');
       }
-    })
-    .filter((el) => el);
-    /*const result = [
-      '{',
-      ...lines,
-      `${indent.repeat(spaceCount)}}`,
-    ];*/
-    return lines.join('\n');
+      return string;
+    });
+    return lines.filter((el) => el).join('\n');
   };
+
   return inner(diffTree, []);
 };

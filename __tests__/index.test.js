@@ -13,6 +13,8 @@ const testComparing = [
   ['file1.yaml', 'file2.yaml', 'stylish'],
   ['file1.json', 'file2.json', 'plain'],
   ['file1.yaml', 'file2.yaml', 'plain'],
+  ['file1.json', 'file2.json', 'json'],
+  ['file1.yaml', 'file2.yaml', 'json'],
 ];
 
 test.each(testComparing)('gendiff', (file1, file2, format) => {
