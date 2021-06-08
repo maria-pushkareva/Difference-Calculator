@@ -11,7 +11,7 @@ const generatePathName = (fileName) => path.join(__dirname, '..', '__fixtures__'
 const result = fs.readFileSync(generatePathName('result.txt'), 'utf-8');
 
 const testComparing = [
-  ['file1_flat.json', 'file2_flat.json'],
+  ['file1.json', 'file2.json'],
   ['file1.yaml', 'file2.yaml'],
 ];
 
@@ -19,5 +19,5 @@ test.each(testComparing)('gendiff', (file1, file2) => {
   const filepath1 = generatePathName(file1);
   const filepath2 = generatePathName(file2);
 
-  expect(gendiff(filepath1, filepath2)).toBe(result);
+  expect(gendiff(filepath1, filepath2).trim()).toEqual(result.trim());
 });
