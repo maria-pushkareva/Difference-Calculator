@@ -15,31 +15,27 @@ const stringifyValue = (element, spaceCount) => {
 
 export default (diffTree) => {
   const inner = (tree, spaceCount) => {
-    const lines = tree.flatMap((el) => {
-      switch (el.type) {
-        case 'unchanged':
-          return `${indent.repeat(spaceCount)}    ${el.key}: ${stringifyValue(el.value, spaceCount + 1)}`;
-        case 'removed':
-          return `${indent.repeat(spaceCount)}  - ${el.key}: ${stringifyValue(el.value, spaceCount + 1)}`;
-        case 'added':
-          return `${indent.repeat(spaceCount)}  + ${el.key}: ${stringifyValue(el.value, spaceCount + 1)}`;
-        case 'updated':
-          return [
-            `${indent.repeat(spaceCount)} - ${el.key}: ${stringifyValue(el.oldValue, spaceCount + 1)}`,
-            `${indent.repeat(spaceCount)} + ${el.key}: ${stringifyValue(el.newValue, spaceCount + 1)}`,
-          ];
-        case 'parent':
-          return `${indent.repeat(spaceCount)}    ${el.key}: ${inner(el.children, (spaceCount + 1))}`;
-        default:
-          throw new Error('uknown type');
-      }
-    });
+    const mapping = {
+      unchanged: (node, count) => `${indent.repeat(count)}    ${node.key}: ${stringifyValue(node.value, count + 1)}`,
+      removed: (node, count) => `${indent.repeat(count)}  - ${node.key}: ${stringifyValue(node.value, count + 1)}`,
+      added: (node, count) => `${indent.repeat(count)}  + ${node.key}: ${stringifyValue(node.value, count + 1)}`,
+      updated: (node, count) => [
+        `${indent.repeat(count)}  - ${node.key}: ${stringifyValue(node.oldValue, count + 1)}`,
+        `${indent.repeat(count)}  + ${node.key}: ${stringifyValue(node.newValue, count + 1)}`,
+      ],
+      parent: (node, count) => `${indent.repeat(count)}    ${node.key}: ${inner(node.children, (count + 1))}`,
+    };
+
+    const lines = tree.flatMap((node) => mapping[node.type](node, spaceCount));
+
     const result = [
       '{',
       ...lines,
       `${indent.repeat(spaceCount)}}`,
     ];
+
     return result.join('\n');
   };
+
   return inner(diffTree, 0);
 };

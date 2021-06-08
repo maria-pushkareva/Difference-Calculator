@@ -9,29 +9,17 @@ const stringyfyValue = (value) => {
 };
 
 export default (diffTree) => {
-  const inner = (tree, path) => {
-    const lines = tree.flatMap((el) => {
-      const newPath = [...path, el.key];
-      let string;
-      switch (el.type) {
-        case 'unchanged':
-          break;
-        case 'removed':
-          string = `Property '${newPath.join('.')}' was removed`;
-          break;
-        case 'added':
-          string = `Property '${newPath.join('.')}' was added with value: ${stringyfyValue(el.value)}`;
-          break;
-        case 'updated':
-          string = `Property '${newPath.join('.')}' was updated. From ${stringyfyValue(el.oldValue)} to ${stringyfyValue(el.newValue)}`;
-          break;
-        case 'parent':
-          string = inner(el.children, newPath);
-          break;
-        default:
-          throw new Error('uknown type');
-      }
-      return string;
+  const inner = (tree, previousPath) => {
+    const mapping = {
+      unchanged: () => false,
+      removed: (path) => `Property '${path.join('.')}' was removed`,
+      added: (path, node) => `Property '${path.join('.')}' was added with value: ${stringyfyValue(node.value)}`,
+      updated: (path, node) => `Property '${path.join('.')}' was updated. From ${stringyfyValue(node.oldValue)} to ${stringyfyValue(node.newValue)}`,
+      parent: (path, node) => inner(node.children, path),
+    };
+    const lines = tree.flatMap((node) => {
+      const currentPath = [...previousPath, node.key];
+      return mapping[node.type](currentPath, node);
     });
     return lines.filter((el) => el).join('\n');
   };
