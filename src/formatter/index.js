@@ -1,9 +1,9 @@
 import stylish from './stylish.js';
-import other from './other.js';
+import plain from './plain.js';
 
 const mapping = {
   stylish,
-  other,
+  plain,
 };
 
 export default (diffTree, format) => {
