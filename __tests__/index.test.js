@@ -19,5 +19,5 @@ test.each(testComparing)('gendiff', (file1, file2) => {
   const filepath1 = generatePathName(file1);
   const filepath2 = generatePathName(file2);
 
-  expect(gendiff(filepath1, filepath2).trim()).toEqual(result.trim());
+  expect(gendiff(filepath1, filepath2)).toEqual(result);
 });
