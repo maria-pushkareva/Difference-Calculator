@@ -3,9 +3,10 @@ import _ from 'lodash';
 const isObject = (el) => (typeof el === 'object' && !Array.isArray(el));
 
 const generateDiffTree = (data1, data2) => {
-  const keys = _.uniq([..._.keys(data1), ..._.keys(data2)]).sort();
+  const keys = _.uniq([..._.keys(data1), ..._.keys(data2)]);
+  const sortedKeys = _.sortBy(keys);
 
-  const result = keys.map((key) => {
+  const result = sortedKeys.map((key) => {
     if (isObject(data1[key]) && isObject(data2[key])) {
       return { key, children: generateDiffTree(data1[key], data2[key]), type: 'parent' };
     }
