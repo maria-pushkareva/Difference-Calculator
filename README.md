@@ -3,3 +3,15 @@
 
 **Comparing two flat JSON files**
 [![asciicast](https://asciinema.org/a/YpKefUVTWmAWPAucK3bjgA11M.svg)](https://asciinema.org/a/YpKefUVTWmAWPAucK3bjgA11M)
+
+**Comparing two nested JSON files**
+[![asciicast](https://asciinema.org/a/hVxuIsKulv2ryMphj21SXy674.svg)](https://asciinema.org/a/hVxuIsKulv2ryMphj21SXy674)
+
+**Comparing two YAML files**
+[![asciicast](https://asciinema.org/a/ELAJzGtmi4CJ3OSjjOiVjj847.svg)](https://asciinema.org/a/ELAJzGtmi4CJ3OSjjOiVjj847)
+
+**Comparing two files in plain format**
+[![asciicast](https://asciinema.org/a/A1ENvdMlhIxL28DwmXyQ0kdWB.svg)](https://asciinema.org/a/A1ENvdMlhIxL28DwmXyQ0kdWB)
+
+**Comparing two files in json format**
+[![asciicast](https://asciinema.org/a/Ildh6wXTWNiBgYAzfd77llZNU.svg)](https://asciinema.org/a/Ildh6wXTWNiBgYAzfd77llZNU)
