@@ -20,7 +20,7 @@ const testComparing = [
 test.each(testComparing)('%# gendiff', (file1, file2, format) => {
   const filepath1 = generatePathName(file1);
   const filepath2 = generatePathName(file2);
-  const expected = fs.readFileSync(generatePathName(`expected_${format}.txt`), 'utf-8').split('\n').join('\n');
+  const expected = fs.readFileSync(generatePathName(`expected_${format}.txt`), 'utf-8').split('\r\n').join('\n');
 
   expect(gendiff(filepath1, filepath2, format).trim()).toEqual(expected.trim());
 });
